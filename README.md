@@ -31,6 +31,9 @@ https://github.com/user-attachments/assets/bf0bdf9d-ba91-45af-9ac4-7274f57075cf
 
 Think of Claudia as your command center for Claude Code - bridging the gap between the command-line tool and a visual experience that makes AI-assisted development more intuitive and productive.
 
+> [!IMPORTANT]
+> **🪟 Windows-Focused Fork**: This is a Windows-specific fork of Claudia. While the original version only supported Linux and macOS, this fork has been specifically updated and optimized for Windows environments. It may work on Linux and macOS, but Windows is the primary target and the only officially supported platform.
+
 ## 📋 Table of Contents
 
 - [🌟 Overview](#-overview)
@@ -150,9 +153,13 @@ Menu → MCP Manager → Add Server → Configure
 
 ### Prerequisites
 
+- **Windows 10/11**: This fork is specifically designed for Windows
 - **Claude Code CLI**: Install from [Claude's official site](https://claude.ai/code)
+- **Git Bash**: Required for proper shell support (usually installed with Git for Windows)
 
 ### Release Executables Will Be Published Soon
+
+**Note**: Release executables will be Windows-only (`.msi` and `.exe` installers). Linux and macOS users should refer to the original Claudia repository.
 
 ## 🔨 Build from Source
 
@@ -162,9 +169,13 @@ Before building Claudia from source, ensure you have the following installed:
 
 #### System Requirements
 
-- **Operating System**: Windows 10/11, macOS 11+, or Linux (Ubuntu 20.04+)
+- **Primary Target**: Windows 10/11 (fully supported and tested)
+- **Secondary**: macOS 11+ or Linux (Ubuntu 20.04+) - may work but not officially supported
 - **RAM**: Minimum 4GB (8GB recommended)
 - **Storage**: At least 1GB free space
+
+> [!NOTE]
+> **Windows Focus**: This fork is optimized for Windows. Linux and macOS builds are not tested or officially supported, though the code may still work on these platforms.
 
 #### Required Tools
 
@@ -194,9 +205,14 @@ Before building Claudia from source, ensure you have the following installed:
 
 #### Platform-Specific Dependencies
 
-**Linux (Ubuntu/Debian)**
+**Windows (Primary Target)**
+- Install [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
+- Install [WebView2](https://developer.microsoft.com/microsoft-edge/webview2/) (usually pre-installed on Windows 11)
+- Install [Git for Windows](https://git-scm.com/download/win) (includes Git Bash - required for Claude CLI shell support)
+
+**Linux (Ubuntu/Debian) - Untested**
 ```bash
-# Install system dependencies
+# Install system dependencies (included for reference - may not work)
 sudo apt update
 sudo apt install -y \
   libwebkit2gtk-4.1-dev \
@@ -214,18 +230,14 @@ sudo apt install -y \
   libjavascriptcoregtk-4.1-dev
 ```
 
-**macOS**
+**macOS - Untested**
 ```bash
-# Install Xcode Command Line Tools
+# Install Xcode Command Line Tools (included for reference - may not work)
 xcode-select --install
 
 # Install additional dependencies via Homebrew (optional)
 brew install pkg-config
 ```
-
-**Windows**
-- Install [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
-- Install [WebView2](https://developer.microsoft.com/microsoft-edge/webview2/) (usually pre-installed on Windows 11)
 
 ### Build Steps
 
@@ -317,12 +329,13 @@ After building, you can verify the application works:
 The build process creates several artifacts:
 
 - **Executable**: The main Claudia application
-- **Installers** (when using `tauri build`):
-  - `.deb` package (Linux)
-  - `.AppImage` (Linux)
-  - `.dmg` installer (macOS)
+- **Windows Installers** (primary target when using `tauri build`):
   - `.msi` installer (Windows)
   - `.exe` installer (Windows)
+- **Other Platform Installers** (may be generated but untested):
+  - `.deb` package (Linux - untested)
+  - `.AppImage` (Linux - untested)
+  - `.dmg` installer (macOS - untested)
 
 All artifacts are located in `src-tauri/target/release/bundle/`.
 
