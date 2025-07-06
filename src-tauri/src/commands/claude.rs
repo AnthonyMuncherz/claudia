@@ -288,6 +288,26 @@ fn create_sidecar_command(
     // Set working directory
     sidecar_cmd = sidecar_cmd.current_dir(project_path);
     
+    // Copy over essential environment variables (same as create_command_with_env)
+    for (key, value) in std::env::vars() {
+        if key == "PATH"
+            || key == "HOME"
+            || key == "USER"
+            || key == "SHELL"
+            || key == "LANG"
+            || key == "LC_ALL"
+            || key.starts_with("LC_")
+            || key == "NODE_PATH"
+            || key == "NVM_DIR"
+            || key == "NVM_BIN"
+            || key == "HOMEBREW_PREFIX"
+            || key == "HOMEBREW_CELLAR"
+        {
+            log::debug!("Inheriting env var for sidecar: {}={}", key, value);
+            sidecar_cmd = sidecar_cmd.env(&key, &value);
+        }
+    }
+    
     Ok(sidecar_cmd)
 }
 
